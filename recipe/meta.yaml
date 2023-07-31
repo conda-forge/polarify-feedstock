@@ -1,5 +1,5 @@
 {% set name = "polarify" %}
-{% set version = "0.1.1" %}
+{% set version = "0.1.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/polarify-{{ version }}.tar.gz
-  sha256: fbace7f79a740f9a8e6f6f2ed1abe3d61f7015859654233a1783e487dfcafb86
+  sha256: 019d448fecd3c75e1a5b030e2c0517dc1ebe01c79e73ae8738f4cf6aba7bac37
 
 build:
   noarch: python
