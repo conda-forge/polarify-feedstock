@@ -21,7 +21,7 @@ requirements:
     - pip
   run:
     - python >=3.9
-    - polars >=0.14.24,<0.19
+    - polars >=0.14.24,<0.20
 
 test:
   imports:
