@@ -34,7 +34,7 @@ test:
 about:
   home: https://github.com/quantco/polarify
   summary: Simplifying conditional Polars Expressions with Python 🐍 🐻‍❄️
-  license: MIT
+  license: BSD-3-Clause
   license_file: LICENSE
 
 extra:
