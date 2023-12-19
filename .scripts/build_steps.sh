@@ -34,9 +34,9 @@ CONDARC
 export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
 
 mamba install --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
-    pip mamba conda-build boa conda-forge-ci-setup=4
+    pip mamba rattler-build conda-forge-ci-setup=4
 mamba update --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
-    pip mamba conda-build boa conda-forge-ci-setup=4
+    pip mamba rattler-build conda-forge-ci-setup=4
 
 # set up the condarc
 setup_conda_rc "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
@@ -71,10 +71,24 @@ if [[ "${BUILD_WITH_CONDA_DEBUG:-0}" == 1 ]]; then
     # Drop into an interactive shell
     /bin/bash
 else
-    conda mambabuild "${RECIPE_ROOT}" -m "${CI_SUPPORT}/${CONFIG}.yaml" \
-        --suppress-variables ${EXTRA_CB_OPTIONS:-} \
-        --clobber-file "${CI_SUPPORT}/clobber_${CONFIG}.yaml" \
-        --extra-meta flow_run_id="${flow_run_id:-}" remote_url="${remote_url:-}" sha="${sha:-}"
+    
+    ## rattler-build build -r recipe -m .ci_support/linux_64_.yaml
+    export CONDA_BLD_PATH="${FEEDSTOCK_ROOT}/output"
+    rattler-build build -r "${RECIPE_ROOT}" -m "${CI_SUPPORT}/${CONFIG}.yaml"
+        # --suppress-variables ${EXTRA_CB_OPTIONS:-} \
+        # --clobber-file "${CI_SUPPORT}/clobber_${CONFIG}.yaml" \
+        # --extra-meta flow_run_id="${flow_run_id:-}" remote_url="${remote_url:-}" sha="${sha:-}" \
+        # --extra-meta conda-forge-build="rattler-build"
+
+    
+    # is_valid_feedstock_output currently assumes that `noarch` 
+    # and a folder for the native platform (e.g. `linux-64`) are present in `output`.
+    # rattler-build only produces folders for architecures that it has built packages for.
+    # Thus we need to create the missing folders.
+    mkdir -p "${CONDA_BLD_PATH}/noarch"
+    mkdir -p "${CONDA_BLD_PATH}/${HOST_PLATFORM}"
+
+    
     ( startgroup "Validating outputs" ) 2> /dev/null
 
     validate_recipe_outputs "${FEEDSTOCK_NAME}"
