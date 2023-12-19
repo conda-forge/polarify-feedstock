@@ -79,6 +79,15 @@ else
         # --clobber-file "${CI_SUPPORT}/clobber_${CONFIG}.yaml" \
         # --extra-meta flow_run_id="${flow_run_id:-}" remote_url="${remote_url:-}" sha="${sha:-}" \
         # --extra-meta conda-forge-build="rattler-build"
+
+    
+    # is_valid_feedstock_output currently assumes that `noarch` 
+    # and a folder for the native platform (e.g. `linux-64`) are present in `output`.
+    # rattler-build only produces folders for architecures that it has built packages for.
+    # Thus we need to create the missing folders.
+    mkdir -p "${CONDA_BLD_PATH}/noarch"
+    mkdir -p "${CONDA_BLD_PATH}/${HOST_PLATFORM}"
+
     
     ( startgroup "Validating outputs" ) 2> /dev/null
 
