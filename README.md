@@ -32,14 +32,14 @@ Current release info
 Installing polarify
 ===================
 
-Installing `polarify` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `polarify` from the `conda-forge/label/polarify-rattler-build_dev` channel can be achieved by adding `conda-forge/label/polarify-rattler-build_dev` to your channels with:
 
 ```
-conda config --add channels conda-forge
+conda config --add channels conda-forge/label/polarify-rattler-build_dev
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `polarify` can be installed with `conda`:
+Once the `conda-forge/label/polarify-rattler-build_dev` channel has been enabled, `polarify` can be installed with `conda`:
 
 ```
 conda install polarify
@@ -54,26 +54,26 @@ mamba install polarify
 It is possible to list all of the versions of `polarify` available on your platform with `conda`:
 
 ```
-conda search polarify --channel conda-forge
+conda search polarify --channel conda-forge/label/polarify-rattler-build_dev
 ```
 
 or with `mamba`:
 
 ```
-mamba search polarify --channel conda-forge
+mamba search polarify --channel conda-forge/label/polarify-rattler-build_dev
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search polarify --channel conda-forge
+mamba repoquery search polarify --channel conda-forge/label/polarify-rattler-build_dev
 
 # List packages depending on `polarify`:
-mamba repoquery whoneeds polarify --channel conda-forge
+mamba repoquery whoneeds polarify --channel conda-forge/label/polarify-rattler-build_dev
 
 # List dependencies of `polarify`:
-mamba repoquery depends polarify --channel conda-forge
+mamba repoquery depends polarify --channel conda-forge/label/polarify-rattler-build_dev
 ```
 
 
