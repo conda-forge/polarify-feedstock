@@ -33,10 +33,10 @@ solver: libmamba
 CONDARC
 export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
 
-mamba install --update-specs --yes --quiet --channel conda-forge/label/rattler-build_rc --channel conda-forge --strict-channel-priority \
-    pip mamba rattler-build=0.6.2rc5 conda-forge-ci-setup=4
-mamba update --update-specs --yes --quiet --channel conda-forge/label/rattler-build_rc --channel conda-forge --strict-channel-priority \
-    pip mamba rattler-build=0.6.2rc5 conda-forge-ci-setup=4
+mamba install --update-specs --yes --quiet --channel conda-forge/label/rattler-build_dev --channel conda-forge --strict-channel-priority \
+    pip mamba rattler-build=0.6.2dev2 conda-forge-ci-setup=4
+mamba update --update-specs --yes --quiet --channel conda-forge/label/rattler-build_dev --channel conda-forge --strict-channel-priority \
+    pip mamba rattler-build=0.6.2dev2 conda-forge-ci-setup=4
 
 # set up the condarc
 setup_conda_rc "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
@@ -80,7 +80,7 @@ else
     ls -al $CONDA_BLD_PATH
 
     if [[ "${UPLOAD_PACKAGES}" != "False" ]] && [[ "${IS_PR_BUILD}" == "False" ]]; then
-        rattler-build upload -vvv anaconda --owner cf-staging $(find $CONDA_BLD_PATH -type d -name "pkg_cache" -prune -o -type f \( -name "*.conda" -o -name "*.tar.bz2" \) -print) --channel polarify-rattler-build_dev
+        rattler-build upload -vvv conda-forge --label polarify-rattler-build_dev $(find $CONDA_BLD_PATH -type d -name "pkg_cache" -prune -o -type f \( -name "*.conda" -o -name "*.tar.bz2" \) -print)
     fi
 
     ( endgroup "Uploading packages" ) 2> /dev/null
