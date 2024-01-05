@@ -33,9 +33,9 @@ solver: libmamba
 CONDARC
 export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
 
-mamba install --update-specs --yes --quiet --channel conda-forge --channel conda-forge/label/rattler-build_rc --strict-channel-priority \
+mamba install --update-specs --yes --quiet --channel conda-forge/label/rattler-build_rc --channel conda-forge --strict-channel-priority \
     pip mamba rattler-build=0.6.2rc5 conda-forge-ci-setup=4
-mamba update --update-specs --yes --quiet --channel conda-forge --channel conda-forge/label/rattler-build_rc --strict-channel-priority \
+mamba update --update-specs --yes --quiet --channel conda-forge/label/rattler-build_rc --channel conda-forge --strict-channel-priority \
     pip mamba rattler-build=0.6.2rc5 conda-forge-ci-setup=4
 
 # set up the condarc
