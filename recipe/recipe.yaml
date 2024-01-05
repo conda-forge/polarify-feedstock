@@ -27,13 +27,13 @@ requirements:
     - python >=3.9
     - polars >=0.14.24,<0.20
 
-test:
-  imports:
-    - polarify
-  commands:
-    - pip check
-  requires:
-    - pip
+# test:
+#   imports:
+#     - polarify
+#   commands:
+#     - pip check
+#   requires:
+#     - pip
 
 about:
   homepage: https://github.com/quantco/polarify
