@@ -78,7 +78,7 @@ else
     export ANACONDA_API_KEY=$STAGING_BINSTAR_TOKEN
 
     if [[ "${UPLOAD_PACKAGES}" != "False" ]] && [[ "${IS_PR_BUILD}" == "False" ]]; then
-        rattler-build upload -vvv anaconda --owner cf-staging $(find output -type f \( -name "*.conda" -o -name "*.tar.bz2" \))
+        rattler-build upload -vvv anaconda --owner cf-staging $(find build_artifacts -type f \( -name "*.conda" -o -name "*.tar.bz2" \)) --channel polarify-rattler-build_dev
     fi
 
     ( endgroup "Uploading packages" ) 2> /dev/null
