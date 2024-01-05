@@ -33,10 +33,10 @@ solver: libmamba
 CONDARC
 export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
 
-mamba install --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
-    pip mamba rattler-build conda-forge-ci-setup=4
-mamba update --update-specs --yes --quiet --channel conda-forge --strict-channel-priority \
-    pip mamba rattler-build conda-forge-ci-setup=4
+mamba install --update-specs --yes --quiet --channel conda-forge --channel conda-forge/label/rattler-build_rc --strict-channel-priority \
+    pip mamba rattler-build=0.6.2rc5 conda-forge-ci-setup=4
+mamba update --update-specs --yes --quiet --channel conda-forge --channel conda-forge/label/rattler-build_rc --strict-channel-priority \
+    pip mamba rattler-build=0.6.2rc5 conda-forge-ci-setup=4
 
 # set up the condarc
 setup_conda_rc "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
@@ -54,12 +54,6 @@ if [[ -f "${FEEDSTOCK_ROOT}/LICENSE.txt" ]]; then
   cp "${FEEDSTOCK_ROOT}/LICENSE.txt" "${RECIPE_ROOT}/recipe-scripts-license.txt"
 fi
 
-if [[ "${sha:-}" == "" ]]; then
-  pushd ${FEEDSTOCK_ROOT}
-  sha=$(git rev-parse HEAD)
-  popd
-fi
-
 if [[ "${BUILD_WITH_CONDA_DEBUG:-0}" == 1 ]]; then
     if [[ "x${BUILD_OUTPUT_ID:-}" != "x" ]]; then
         EXTRA_CB_OPTIONS="${EXTRA_CB_OPTIONS:-} --output-id ${BUILD_OUTPUT_ID}"
@@ -73,32 +67,18 @@ if [[ "${BUILD_WITH_CONDA_DEBUG:-0}" == 1 ]]; then
 else
     
     ## rattler-build build -r recipe -m .ci_support/linux_64_.yaml
-    export CONDA_BLD_PATH="${FEEDSTOCK_ROOT}/output"
     rattler-build build -r "${RECIPE_ROOT}" -m "${CI_SUPPORT}/${CONFIG}.yaml"
         # --suppress-variables ${EXTRA_CB_OPTIONS:-} \
         # --clobber-file "${CI_SUPPORT}/clobber_${CONFIG}.yaml" \
         # --extra-meta flow_run_id="${flow_run_id:-}" remote_url="${remote_url:-}" sha="${sha:-}" \
         # --extra-meta conda-forge-build="rattler-build"
-
     
-    # is_valid_feedstock_output currently assumes that `noarch` 
-    # and a folder for the native platform (e.g. `linux-64`) are present in `output`.
-    # rattler-build only produces folders for architecures that it has built packages for.
-    # Thus we need to create the missing folders.
-    mkdir -p "${CONDA_BLD_PATH}/noarch"
-    mkdir -p "${CONDA_BLD_PATH}/${HOST_PLATFORM}"
-
-    
-    ( startgroup "Validating outputs" ) 2> /dev/null
-
-    validate_recipe_outputs "${FEEDSTOCK_NAME}"
-
-    ( endgroup "Validating outputs" ) 2> /dev/null
-
     ( startgroup "Uploading packages" ) 2> /dev/null
 
+    export ANACONDA_API_KEY=$STAGING_BINSTAR_TOKEN
+
     if [[ "${UPLOAD_PACKAGES}" != "False" ]] && [[ "${IS_PR_BUILD}" == "False" ]]; then
-        upload_package --validate --feedstock-name="${FEEDSTOCK_NAME}"  "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
+        rattler-build upload -vvv anaconda --owner cf-staging $(find output -type f \( -name "*.conda" -o -name "*.tar.bz2" \))
     fi
 
     ( endgroup "Uploading packages" ) 2> /dev/null
