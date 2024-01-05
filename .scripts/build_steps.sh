@@ -34,9 +34,9 @@ CONDARC
 export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
 
 mamba install --update-specs --yes --quiet --channel conda-forge/label/rattler-build_dev --channel conda-forge --strict-channel-priority \
-    pip mamba rattler-build=0.6.2dev2 conda-forge-ci-setup=4
+    pip mamba rattler-build=0.6.2dev3 conda-forge-ci-setup=4
 mamba update --update-specs --yes --quiet --channel conda-forge/label/rattler-build_dev --channel conda-forge --strict-channel-priority \
-    pip mamba rattler-build=0.6.2dev2 conda-forge-ci-setup=4
+    pip mamba rattler-build=0.6.2dev3 conda-forge-ci-setup=4
 
 # set up the condarc
 setup_conda_rc "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
