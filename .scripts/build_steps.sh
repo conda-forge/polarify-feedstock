@@ -80,7 +80,7 @@ else
     ls -al $CONDA_BLD_PATH
 
     if [[ "${UPLOAD_PACKAGES}" != "False" ]] && [[ "${IS_PR_BUILD}" == "False" ]]; then
-        rattler-build upload -vvv anaconda --owner cf-staging $(find "$CONDA_BLD_PATH" -type d -name "pkg_cache" -prune -o -type f \( -name "*.conda" -o -name "*.tar.bz2" \)) --channel polarify-rattler-build_dev
+        rattler-build upload -vvv anaconda --owner cf-staging $(find $CONDA_BLD_PATH -type d -name 'pkg_cache' -prune -o -type f \( -name "*.conda" -o -name "*.tar.bz2" \) -print) --channel polarify-rattler-build_dev
     fi
 
     ( endgroup "Uploading packages" ) 2> /dev/null
