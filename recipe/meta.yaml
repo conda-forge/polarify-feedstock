@@ -12,7 +12,7 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
@@ -21,7 +21,7 @@ requirements:
     - pip
   run:
     - python >=3.9
-    - polars >=0.14.24,<0.20
+    - polars >=0.14.24,<0.21
 
 test:
   imports:
