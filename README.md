@@ -3,7 +3,7 @@ About polarify-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/polarify-feedstock/blob/main/LICENSE.txt)
 
-Home: https://github.com/quantco/polarify
+
 
 Package license: BSD-3-Clause
 
@@ -143,6 +143,4 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
-* [@0xbe7a](https://github.com/0xbe7a/)
-* [@pavelzw](https://github.com/pavelzw/)
 

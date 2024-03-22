@@ -8,9 +8,10 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_:
-        CONFIG: linux_64_
-        UPLOAD_PACKAGES: 'True'
+      linux_64_channel_targetsconda-forge_polarify-rattler-build_dev:
+        CONFIG: linux_64_channel_targetsconda-forge_polarify-rattler-build_dev
+        # Manually switched to False
+        UPLOAD_PACKAGES: 'False'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
   timeoutInMinutes: 360
 
@@ -35,7 +36,7 @@ jobs:
         else
           export IS_PR_BUILD="False"
         fi
-        .scripts/run_docker_build.sh
+        .scripts/run_docker_build_new_recipe.sh
     displayName: Run docker build
     env:
       BINSTAR_TOKEN: $(BINSTAR_TOKEN)
