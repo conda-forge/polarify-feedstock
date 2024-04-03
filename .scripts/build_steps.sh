@@ -61,6 +61,8 @@ else
 
       rattler-build build --recipe "${RECIPE_ROOT}" -m "${CI_SUPPORT}/${CONFIG}.yaml"
       ls -al $CONDA_BLD_PATH
+      mkdir /home/conda/feedstock_root/build_artifacts/linux-64
+
     ( startgroup "Validating outputs" ) 2> /dev/null
 
     validate_recipe_outputs "${FEEDSTOCK_NAME}"
