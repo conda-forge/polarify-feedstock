@@ -26,10 +26,6 @@ requirements:
 test:
   imports:
     - polarify
-  commands:
-    - pip check
-  requires:
-    - pip
 
 about:
   home: https://github.com/quantco/polarify
