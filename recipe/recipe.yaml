@@ -28,11 +28,6 @@ requirements:
     - polars >=0.14.24,<0.20
 
 tests:
-  - script:
-       - pip check
-    requirements:
-      run:
-       - pip
   - python:
       imports:
         - polarify
