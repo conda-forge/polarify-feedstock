@@ -71,6 +71,7 @@ else
             --suppress-variables ${EXTRA_CB_OPTIONS:-} \
             --clobber-file "${CI_SUPPORT}/clobber_${CONFIG}.yaml" \
             --extra-meta flow_run_id="${flow_run_id:-}" remote_url="${remote_url:-}" sha="${sha:-}"
+    mkdir /home/conda/feedstock_root/build_artifacts/linux-64
     ls -al /home/conda/feedstock_root/build_artifacts
     ( startgroup "Validating outputs" ) 2> /dev/null
 
