@@ -14,17 +14,17 @@ source:
 
 build:
   number: 3
-  noarch: python
+  # noarch: python
   script:
     - python -m pip install . -vv
 
 requirements:
   host:
-    - python >=3.9
+    - python
     - pip
     - hatchling
   run:
-    - python >=3.9
+    - python
     - polars >=0.14.24,<0.20
 
 tests:
